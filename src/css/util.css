@@ -1,0 +1,11 @@
+/* 
+    author: summer_mushroom@163.com
+    date: 2017.11.14
+    des：改变iview原由组件的样式
+*/
+/* Input变为下划线样式 */
+.s-inputLine input{
+    border: none;
+    border-bottom: 1px solid #dddee1;
+    border-radius: 0px;
+}
