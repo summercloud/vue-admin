@@ -1,0 +1,35 @@
+{
+    "extends": "standard",
+    "plugins": ["html"],
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jquery": true,
+      "commonjs": true,
+      "phantomjs": true,
+      "mocha": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "no-unused-vars": 2,
+        "no-console": 1,
+        "no-negated-condition": 0,
+        "no-multiple-empty-lines": 1,
+        "no-mixed-spaces-and-tabs": 2,
+        "no-multi-spaces": 2,
+        "max-len": 0,
+        "semi": 0,
+        "strict": 0,
+        "space-before-function-paren": 0,
+        "comma-dangle": ["error", "only-multiline"],
+        "indent": ["error", 4]
+    },
+    "parser": "babel-eslint"  
+}
