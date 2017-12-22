@@ -29,7 +29,7 @@ const user = {
         userLogin ({commit}, userInfo) {
             const username = userInfo.username.trim();
             return new Promise((resolve, reject) => {
-                request('/rest/login', {
+                request('/login', {
                     method: 'POST',
                     data: {
                         username,
@@ -46,7 +46,7 @@ const user = {
         },
         currentUser({commit}) {
             return new Promise((resolve, reject) => {
-                request('/rest/currentuser', {
+                request('/currentuser', {
                     method: 'EGT',
                 }).then(res => {
                     commit('SET_NAME', res.data.username);

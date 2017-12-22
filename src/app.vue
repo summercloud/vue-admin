@@ -61,14 +61,14 @@ export default {
     },
     created: function() {
         let self = this;
-        /* this.$_request('/rest/user/getMenu', {
+        this.$_request('/menu', {
             method: 'GET'
         }).then(res => {
             console.log('成功');
         });
         this.$store.dispatch('currentUser').then(data => {
             return;
-        }); */
+        });
     },
     methods: {
         logout: function(){

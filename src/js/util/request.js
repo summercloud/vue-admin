@@ -61,7 +61,7 @@ const _formlize = function(obj) {
     opt中可接受的参数，详见https://github.com/axios/axios
     添加额外参数：_onerror
 */
-axios.defaults.baseURL = 'http://10.10.101.145:30099';
+axios.defaults.baseURL = 'https://easy-mock.com/mock/5a3b5fcd93500d35b8ca2789/example';
 
 const request = function (url, opt) {
     opt = opt || {};

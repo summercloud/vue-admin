@@ -5,11 +5,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
+        // 主文件入口
         main: './src/index.js',
+        // vendors.js用于引入依赖包，将第三方依赖打包到vendors中
         vendors: './src/vendors.js'
     },
     output: {
+        // webpack-dev-server在开发环境时读取静态文件包的路径
         publicPath: '/dist/',
+        // 用于存储打包后文件路径
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
@@ -60,6 +64,7 @@ module.exports = {
             test: /\.(html|tpl)$/,
             loader: 'html-loader'
         }],
+        // 对所有出去node_modules以外的js都使用babel-loader解析
         loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,
@@ -70,6 +75,7 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        // 将样式文件单独抽出，打包至style.css中使用
         new ExtractTextPlugin({
             filename: 'style.css',
             allChunks: true
@@ -94,18 +100,22 @@ module.exports = {
     devtool: 'cheap-module-source-map'
 }
 
+// 如果为生产环境，则进行代码压缩
 if (process.env.NODE_ENV === 'production') {
     module.exports.plugins = (module.exports.plugins || []).concat([
+        // 在编译时配置全局变量NODE_ENV
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
             }
         }),
+        // 使用UglifyJS压缩代码
         new UglifyJSPlugin({
             uglifyOptions: {
                 warnings: false
             }
         }),
+        // 根据模块的引用次数设置模块ids，使得ids可预测减小总文件大小
         new webpack.optimize.OccurrenceOrderPlugin()
     ])
 }
