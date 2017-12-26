@@ -52,6 +52,7 @@
     des：主入口页面，包含页面架构，及登出操作等
 */
 import HcLogin from 'component/hcLogin/index.js';
+import {getMenuList} from 'api/baseInfo.js';
 
 export default {
     data: function(){
@@ -61,14 +62,12 @@ export default {
     },
     created: function() {
         let self = this;
-        this.$_request('/menu', {
-            method: 'GET'
-        }).then(res => {
-            console.log('成功');
+        getMenuList().then(res => {
+            console.log(res);
         });
-        this.$store.dispatch('currentUser').then(data => {
+        /* this.$store.dispatch('currentUser').then(data => {
             return;
-        });
+        }); */
     },
     methods: {
         logout: function(){

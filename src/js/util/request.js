@@ -7,6 +7,7 @@ import axios from 'axios';
 import HcLogin from 'component/hcLogin/index.js';
 import { Notice } from 'iview';
 
+// 默认错误处理方式
 const _onerror = function (error) {
     Notice.error({
         title: '请求错误',
@@ -14,6 +15,7 @@ const _onerror = function (error) {
     });
 }
 
+// 将obj转化成为form-data格式的数据
 const _formlize = function(obj) {
     let query = '';
     let name, value, fullSubName, subName, subValue, innerObj, i;
@@ -57,41 +59,47 @@ const _formlize = function(obj) {
 
     return query.length ? query.substr(0, query.length - 1) : query;
 }
-/* 
-    opt中可接受的参数，详见https://github.com/axios/axios
-    添加额外参数：_onerror
-*/
-axios.defaults.baseURL = 'https://easy-mock.com/mock/5a3b5fcd93500d35b8ca2789/example';
 
-const request = function (url, opt) {
-    opt = opt || {};
-    opt.method = opt.method || 'GET';
-    opt.data = opt.data || {};
-    opt.headers = opt.headers || {};
-    opt.withCredentials = true;
-    let errorfn = typeof opt.onerror === 'function' ? opt.onerror : _onerror;
+// 错误处理方法
+let errorfn = _onerror;
 
-    if (opt.formlize) {
-        opt.transformRequest = (data, headers) => {
+const service = axios.create({
+    baseURL: 'https://easy-mock.com/mock/5a3b5fcd93500d35b8ca2789/example',
+    timeout: 5000
+});
+
+// request拦截器
+service.interceptors.request.use(config => {
+    config.method = config.method || 'GET';
+    config.data = config.data || {};
+    errorfn = typeof config.onerror === 'function' ? config.onerror : _onerror;
+
+    // 若formlize==true ,则将数据转化为form-data的形式
+    if (config.formlize) {
+        config.transformRequest = (data, headers) => {
             return _formlize(data);
         }
     }
 
-    return new Promise((resolve, reject) => {
-        axios(url, opt).then(function (res) {
-            if (res.status >= 400 || res.status < 200) {
-                errorfn.apply(this, arguments);
-            } else {
-                resolve(res.data);
-            }
-        }).catch(function (error) {
-            if (error.response.status === 401) {
-                HcLogin.newInstance();
-            } else {
-                errorfn.apply(this, arguments);
-            }
-        });
-    });
-}
+    return config;
+}, error => {
+    errorfn.apply(this, arguments);
+    return Promise.reject(error);
+});
 
-export default request;
+// response拦截器
+service.interceptors.response.use(response => {
+    if (response.status >= 400 || response.status < 200) {
+        errorfn.apply(this, arguments);
+    }
+    return response;
+}, error => {
+    if (error.response.status === 401) {
+        HcLogin.newInstance();
+    } else {
+        errorfn.apply(this, arguments);
+    }
+    return Promise.reject(error);
+});
+
+export default service;

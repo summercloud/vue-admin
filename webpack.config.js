@@ -83,9 +83,11 @@ module.exports = {
     ],
     resolve: {
         alias: {
+            // 为文件配置快速访问入口
             vue: 'vue/dist/vue.js',
             'src': path.resolve(__dirname, './src'),
             'js': path.resolve(__dirname, './src/js'),
+            'api': path.resolve(__dirname, './src/js/api'),
             'component': path.resolve(__dirname, './src/js/component'),
             'image': path.resolve(__dirname, './src/iamge'),
             // vue: 'vue/dist/vue.runtime.js'
