@@ -4,7 +4,6 @@
     des: 使用axios处理ajax请求
 */
 import axios from 'axios';
-import HcLogin from 'component/hcLogin/index.js';
 import { Notice } from 'iview';
 
 // 默认错误处理方式
@@ -94,11 +93,7 @@ service.interceptors.response.use(response => {
     }
     return response;
 }, error => {
-    if (error.response.status === 401) {
-        HcLogin.newInstance();
-    } else {
-        errorfn.apply(this, arguments);
-    }
+    errorfn.apply(this, arguments);
     return Promise.reject(error);
 });
 

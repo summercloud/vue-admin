@@ -88,6 +88,7 @@ module.exports = {
             'src': path.resolve(__dirname, './src'),
             'js': path.resolve(__dirname, './src/js'),
             'api': path.resolve(__dirname, './src/js/api'),
+            'pages': path.resolve(__dirname, './src/js/pages'),
             'component': path.resolve(__dirname, './src/js/component'),
             'image': path.resolve(__dirname, './src/iamge'),
             // vue: 'vue/dist/vue.runtime.js'

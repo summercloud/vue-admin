@@ -115,6 +115,11 @@ input:-webkit-autofill { /* 去input黄色背景 */
 .f-ml20 { margin-left:20px; }
 .f-mt20 { margin-top:20px; }
 
+.f-mb40 { margin-bottom:40px; }
+.f-mr40 { margin-right:40px;  }
+.f-ml40 { margin-left:40px; }
+.f-mt40 { margin-top:40px; }
+
 .f-ml65 { margin-left:65px; }
 
 /* 清除浮动 */

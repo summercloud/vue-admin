@@ -7,3 +7,11 @@ export function getMenuList(query) {
         params: query
     })
 }
+
+export function getTestMock(query) {
+    return request({
+        url: '/mock',
+        method: 'GET',
+        params: query
+    })
+}
